@@ -1,0 +1,6 @@
+# UPDATED DEPENDENCIES - SECURITY VULNERABILITIES FIXED
+
+flask==3.0.0
+requests==2.31.0
+werkzeug==3.0.1
+jinja2==3.1.2

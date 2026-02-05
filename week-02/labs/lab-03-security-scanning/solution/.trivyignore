@@ -1,0 +1,13 @@
+# Trivy Ignore File
+# Use this to document CVEs that don't apply to your use case
+# Always include a comment explaining WHY you're ignoring it
+
+# Example: CVE in libexpat - our app doesn't parse XML
+# CVE-2023-12345
+
+# Example: Vulnerability requires local access - container runs in isolated network
+# CVE-2023-54321
+
+# Example: No fix available yet, risk accepted by security team
+# Ticket: SEC-1234
+# CVE-2023-99999

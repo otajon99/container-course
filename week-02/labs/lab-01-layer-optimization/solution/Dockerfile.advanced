@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy and install dependencies (rarely changes)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy data files (changes less often than code)
+COPY data/ ./data/
+
+# Copy application code last (changes most frequently)
+COPY app.py .
+
+CMD ["python", "app.py"]

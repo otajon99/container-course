@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# ✅ OPTIMIZED: Copy dependencies first
+# This layer is cached unless requirements.txt changes
+COPY requirements.txt .
+
+# Expensive operation, but cached when only app.py changes
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code AFTER dependencies
+# Code changes frequently, dependencies don't
+COPY . .
+
+CMD ["python", "app.py"]
