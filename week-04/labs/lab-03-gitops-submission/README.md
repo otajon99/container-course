@@ -173,6 +173,35 @@ The `kubectl create` output is minimal. You need to add labels, environment vari
 
 > **Key detail:** The `ENVIRONMENT` env var uses `fieldRef: metadata.namespace` instead of a hardcoded string. Kustomize sets the namespace, and the pod picks it up automatically. This is why dev and prod manifests can be identical.
 
+
+---
+
+## What is Kustomize?
+
+Before you start writing `kustomization.yaml` files, it's worth understanding what Kustomize is and why it exists.
+
+Imagine you need to deploy the same application to dev, staging, and prod. Each environment needs slightly different settings — different namespaces, replica counts, resource limits, maybe different image tags. The brute-force approach is to copy all your YAML files into separate folders for each environment and edit them individually. That works, but now you have three copies of everything. When you update a label or add a health probe, you have to remember to change it in every folder.
+
+Kustomize solves this problem. It's a tool — built directly into `kubectl` since Kubernetes 1.14 — that lets you customize Kubernetes manifests without modifying the original files. Instead of templating (like Helm does with `{{ .Values.replicas }}`), Kustomize works with plain YAML. You write a `kustomization.yaml` file that tells Kustomize which resource files to include and what transformations to apply on top of them.
+
+In this lab, you're using two Kustomize features:
+
+1. **Resource listing** — your `kustomization.yaml` declares which YAML files belong together as a group. When you run `kubectl kustomize <directory>`, it reads the `kustomization.yaml`, finds the listed resources, and outputs them as one combined YAML stream. This is how ArgoCD knows what to deploy.
+
+2. **Namespace transformer** — the `namespace:` field in a `kustomization.yaml` automatically injects that namespace into every resource it manages. This is why your `deployment.yaml` and `service.yaml` don't need a hardcoded `metadata.namespace` — Kustomize adds it for you at build time.
+
+Right now, your dev and prod directories contain identical copies of the same manifests, and Kustomize just sets different namespaces on each. That duplication is intentional — we'll fix it in a later week using Kustomize's **base + overlay** pattern, where you write shared manifests once in a `base/` directory and each environment only contains the differences. For now, the goal is to understand what `kustomization.yaml` does and see the namespace transformer in action.
+
+You can try it yourself — run `kubectl kustomize` against your directory and watch it combine and transform your files into the final output that ArgoCD will apply to the cluster.
+
+**Official docs:**
+- [Kustomize.io](https://kustomize.io/) — project homepage
+- [Kubernetes docs: Declarative Management with Kustomize](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/) — the official Kubernetes walkthrough
+- [Kustomize GitHub repo](https://github.com/kubernetes-sigs/kustomize) — source and examples
+- [ArgoCD + Kustomize](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/) — how ArgoCD detects and renders Kustomize directories (this is what happens after your PR is merged)
+
+---
+
 ### Write kustomization.yaml files
 
 These are short — write them by hand.
