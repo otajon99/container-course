@@ -10,8 +10,8 @@
     },
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
-      "kubectl": "latest",
-      "helm": "latest",
+      "kubectl": "1.35",
+      "helm": "3.17",
       "minikube": "none"
     }
   },

@@ -21,7 +21,7 @@ When it finishes, you'll see:
 
 ```
 Creating cluster "lab" ...
- ✓ Ensuring node image (kindest/node:v1.32.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.35.0) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️

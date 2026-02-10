@@ -34,7 +34,7 @@ pip3 --version
 # --- Week 04: Kubernetes tools ---
 
 echo "Installing kind..."
-curl -fsSLo ./kind https://kind.sigs.k8s.io/dl/v0.27.0/kind-linux-amd64
+curl -fsSLo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64
 sudo install -m 755 ./kind /usr/local/bin/kind
 rm ./kind
 kind version

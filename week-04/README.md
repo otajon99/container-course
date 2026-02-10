@@ -35,7 +35,7 @@ You need a local Kubernetes cluster for experimentation. We use **kind** (Kubern
 
 ```bash
 # Install kind
-[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.27.0/kind-linux-amd64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 
@@ -54,15 +54,9 @@ kubectl version --client
 
 ### Shared Cluster Access
 
-Your instructor will provide a kubeconfig file for read-only access to the shared production cluster. Save it:
+You'll connect to the shared production cluster using `cloudflared` (a Cloudflare Tunnel proxy) and OIDC authentication via your GitHub account. Both tools are pre-installed in the devcontainer.
 
-```bash
-mkdir -p ~/.kube
-# Your instructor will provide this file
-cp shared-cluster.kubeconfig ~/.kube/shared-config
-```
-
-You'll use two contexts throughout this course: your local kind cluster for experimentation, and the shared cluster to see your production deployments.
+See [Lab 1, Part 3](./labs/lab-01-kind-cluster/) for the full setup steps. You'll use two contexts throughout this course: your local kind cluster for experimentation, and the shared cluster to see your production deployments.
 
 ---
 
